@@ -245,9 +245,84 @@ module.exports = {
 
 `yarn start --reset-cache` ou `react-native start --reset-cache`, dependendo de como voce inicia o projeto, e tambem se nao resolver rodar `yarn ios` ou `react-native run-ios` resolve tambem.
 
+## Aula 05 - Configurando Reactotron
 
+Podemos debugar a aplicaçao usando `console.log()` mas nao é interessante pois os dados sao mostrados no navegador, e fica muito desorganizado, e para resolver isso vamos [instalar o Reactotron](https://github.com/infinitered/reactotron/blob/master/docs/quick-start-react-js.md)
 
+Depois de instalar no computador abrimos o aplicativo e fazemos o seguinte:
 
+1.Rodamos no terminal na pasta do nosso projeto:`yarn add reactotron-react-native`
+2. Criamos uma pasta `src` na raiz do projeto e la dentro criamos um arquivo `index.js` e dentro dele colocamos o codigo que esta no `App.js` na raiz da aplicaçāo:
 
+***`src > index.js`***:
+```
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#eee',
+  },
 
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+});
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.welcome}>Welcome to React Native</Text>
+    </View>
+  );
+}
+```
+
+3. Deletamos o arquivo `App.js` que estava na raiz da aplicaçāo
+4. Vamos no `index.js` que esta na raiz da aplicaçāo e deixamos ele assim:
+
+***`index.js`***
+
+```
+/**
+ * @format
+ */
+
+import { AppRegistry } from 'react-native';
+import App from './src/index';
+import { name as appName } from './app.json';
+
+AppRegistry.registerComponent(appName, () => App);
+```
+***--> trocamos o caminho do arquivo principal***
+
+5. Dentro da pasta `src` criamos outra pasta `config` e dentro dela um arquivo chamado `ReactotronConfig.js`
+
+***`ReactotronConfig.js`***:
+
+```
+import Reactroton from 'reactotron-react-native';
+
+if (__DEV__) {
+  const tron = Reactroton.configure().useReactNative().connect();
+
+  console.tron = tron;
+
+  tron.clear();
+}
+```
+
+6. Vamos no `.eslintrc` e adicionamos dentro de `globals`:
+
+` __DEV__ : 'readonly'`
+
+7. Dentro de `src > index.js` --> `import './config/ReactotronConfig';`
+
+Agora toda vez que usarmos o comando `console.tron.log()` ele vai fazer o console.log dentro do aplicativo do ***Reactotron***.
+
+Vamos aprender mais utilizades do ***Reactotron*** mais pra frente.
