@@ -47,7 +47,7 @@ function Button() {
 }
 ```
 
-Como podemos perceber: 
+Como podemos perceber:
 
 - A declaraçāo dos componentes é igual a da Web
 - Nāo usamos HTML e sim componentes proprio do ***React Native***
@@ -105,7 +105,7 @@ Para configurar o emulador de celular no computador, vá ao site [docs.rocketset
 
 OBS: Nāo usar `-` no nome do projeto pois dara erro.
 
-2. Rodar `cd <nomeDoProjeto>` ***EX:`cd reactNativeIntro`*** 
+2. Rodar `cd <nomeDoProjeto>` ***EX:`cd reactNativeIntro`***
 3. Rodar `npx react-native run-ios`
 
 Depois de rodarmos esse comando uma unica vez, quando desligarmos a maquina ou algo do tipo, somente rodamos `npx react-native start` na pasta do projeto para iniciar, abrimos o emulador e clicamos no icone do app.
@@ -141,3 +141,113 @@ const styles = StyleSheet.create({
   },
 });
 ```
+
+## Aula 04 - ESLint, Prettier & EditorConfig
+
+Vamos configurar agora os pacotes que vao ajudar a gente a manter os padrões de codigo dentro do nosso projeto.
+
+### EditorConfig
+
+1. Instale no VSCode a extensao do ***EditorConfig***
+2. Vá na localizaçāo das pastas e clique com os dois dedos (botao direito no mouse) e clique em `Generate .editorconfig` e nosso arquivo sera criado.
+
+A configuracao dele ficará assim:
+
+```
+root = true
+
+[*]
+end_of_line = lf
+indent_style = space
+indent_size = 2
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+```
+
+### ESLint
+
+1. Rodar `yarn add eslint -D`
+2. Rodar `yarn eslint --init`
+3. Selecionar:
+
+`❯ To check syntax, find problems, and enforce code style`
+`❯ JavaScript modules (import/export)`
+`❯ React`
+`? Does your project use TypeScript? (y/N) N`
+```
+❯◯ Browser  NENHUM DOS DOIS
+ ◯ Node
+```
+`❯ Use a popular style guide`
+`❯ Airbnb: https://github.com/airbnb/javascript`
+`❯ JavaScript`
+`? Would you like to install them now with npm? (Y/n) Y`
+
+4. Deletar o arquivo `package-lock.json`
+5. Rodar `yarn`
+
+### Prettier
+
+1. Rodar `yarn add prettier eslint-config-prettier eslint-plugin-prettier babel-eslint -D `
+2. Vamos deixar nosso arquivo `.eslintrc.js` que foi criado na raiz do projeto assim:
+
+```
+module.exports = {
+  env: {
+    es6: true,
+  },
+  extends: [
+    'plugin:react/recommended',
+    'airbnb',
+    'prettier',
+    'prettier/react'
+  ],
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
+  },
+  parser: 'babel-eslint',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 2018,
+    sourceType: 'module',
+  },
+  plugins: [
+    'react',
+    'prettier'
+  ],
+  rules: {
+    'prettier/prettier': 'error',
+    'react/jsx-filename-extension': [
+      'warn',
+      {
+        extensions: ['.jsx', '.js']
+      }
+    ],
+    'import/prefer-default-export': 'off'
+  },
+};
+```
+
+3. Criamos um arquivo `.prettierrc` e deixamos ele assim:
+
+```
+{
+  "singleQuote": true,
+  "trailingComma": "es5"
+}
+```
+
+### Problema com algum erro instalando os pacotes:
+
+`yarn start --reset-cache` ou `react-native start --reset-cache`, dependendo de como voce inicia o projeto, e tambem se nao resolver rodar `yarn ios` ou `react-native run-ios` resolve tambem.
+
+
+
+
+
+
+
