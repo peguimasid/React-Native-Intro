@@ -171,18 +171,18 @@ insert_final_newline = true
 2. Rodar `yarn eslint --init`
 3. Selecionar:
 
-`❯ To check syntax, find problems, and enforce code style`
-`❯ JavaScript modules (import/export)`
-`❯ React`
-`? Does your project use TypeScript? (y/N) N`
+`❯ To check syntax, find problems, and enforce code style` <br>
+`❯ JavaScript modules (import/export)`<br>
+`❯ React` <br>
+`? Does your project use TypeScript? (y/N) N` <br>
 ```
 ❯◯ Browser  NENHUM DOS DOIS
  ◯ Node
 ```
-`❯ Use a popular style guide`
-`❯ Airbnb: https://github.com/airbnb/javascript`
-`❯ JavaScript`
-`? Would you like to install them now with npm? (Y/n) Y`
+`❯ Use a popular style guide` <br>
+`❯ Airbnb: https://github.com/airbnb/javascript` <br>
+`❯ JavaScript` <br>
+`? Would you like to install them now with npm? (Y/n) Y` <br>
 
 4. Deletar o arquivo `package-lock.json`
 5. Rodar `yarn`
