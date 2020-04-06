@@ -458,4 +458,32 @@ Podemos fazer isso em qualquer rota, mas como quero alterar em todas vou fazer o
 
 o ***barStyle*** altera a cor das informacões pra branco e a ***backgroundColor*** altera a cor de fundo no android para a mesa que estivermos usando na navegaçāo.
 
+## Aula 08 - Styled Components
 
+Vamos intalar a mesma lib que utlizamos para estilizaçāo no ***ReactJS*** no ***React Native***
+
+### Configurando
+
+1. `yarn add styled-components`
+2. Dentro da rota que quisermos estilizar (***EX:***`src > pages > Main`) criamos um arquivo `styles.js`
+3. se digitarmos `styled-rn` ele já monta todas as configurações base pra gente
+
+```
+import styled from 'styled-components/native';
+
+export const Container = styled.View`
+  flex: 1;
+  padding: 30px;
+`;
+```
+4. Vamos depois no `index.js` da mesma pasta que adicionamos o `styles.js`
+
+```
+import { Container } from './styles';
+
+export default function Main() {
+  return <Container />;
+}
+```
+
+e nossa estilizacao sera aplicada.
