@@ -326,3 +326,136 @@ if (__DEV__) {
 Agora toda vez que usarmos o comando `console.tron.log()` ele vai fazer o console.log dentro do aplicativo do ***Reactotron***.
 
 Vamos aprender mais utilizades do ***Reactotron*** mais pra frente.
+
+
+## Aula 06 - React Navigation
+
+Assim como temos a parte de rotas na ***Web*** vamos ter aqui tambem.
+
+### Configurando
+
+1. Para começar vamos deixar nosso `src > index.js` assim, quase sem nada:
+
+```
+import React from 'react';
+import { View } from 'react-native';
+
+import './config/ReactotronConfig';
+
+export default function App() {
+  return <View />;
+}
+```
+
+2. Depois vamos dentro de `src` criar uma pasta `pages` e dentro dela duas pastas: `Main` e `User` cada uma com um arquivo `index.js` dentro, que serao as rotas que a nossa aplicaçāo tera.
+
+3. No arquivo `index.js` de cada pasta colocamos as configurações base do ***React Native*** digitando `rnfc` (temos que ter instalado os snippets de React e React Native da Rocketseat) ficando assim:
+
+```
+import React from 'react';
+import { View } from 'react-native';
+
+// import { Container } from './styles';
+
+export default function User || Main() {
+  return <View />;
+}
+```
+
+4. Rodar `yarn add react-navigation`
+
+5. Rodar `yarn add react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view`
+
+6. Entrat em `android > app > build.gradle` e em `dependencies` adicionar essas linhas:
+
+```
+implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
+```
+
+7. Rodar `cd ios`; `pod install`; `cd ..`
+
+8. Rodar `yarn add react-navigation-stack @react-native-community/masked-view react-native-safe-area-context`
+
+9. Dentro de `src` criamos um arquivo `routes.js` que vai ficar assim:
+
+```
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+
+import Main from './pages/Main';
+import User from './pages/User';
+
+const Routes = createAppContainer(
+  createStackNavigator({
+    Main,
+    User,
+  })
+);
+
+export default Routes;
+```
+
+--> Sempre colocar qualquer tipo de navegaçāo dentro do `createAppContainer`
+
+10. Voltamos no `index.js` na raiz do projeto e deixamos ele assim
+
+```
+import React from 'react';
+
+import './config/ReactotronConfig';
+import Routes from './routes';
+
+export default function App() {
+  return <Routes />;
+}
+```
+
+Se aparecer um cabecalho na parte de cima da tela do simulador é sinal de que funcionou perfeitamente
+
+Se quisermos mudar o titulo que aparece no cabecalho podemos fazendo o seguinte la em `src > pages > Main > index.js`:
+
+```
+Main.navigationOptions = {
+  title: 'Nome da Pagina',
+};
+```
+
+podemos tambem mudar os estilos la em `routes.js`
+
+***EXEMPLO:***
+
+```
+createStackNavigator(
+    {
+      Main,
+      User,
+    },
+    {
+      headerTitleAlign: 'center', // Titulo no meio
+      defaultNavigationOptions: {
+        headerBackTitleVisible: false, // tira o titulo em outra pagina
+        headerStyle: {
+          backgroundColor: '#7159c1', // cor do header
+        },
+        headerTintColor: '#FFF', //cor da escrita do header
+      },
+    }
+  )
+```
+
+## Aula 07 - Configurando StatusBar
+
+Podemos configurar a ***StatusBar*** do dispositivo.
+
+Podemos fazer isso em qualquer rota, mas como quero alterar em todas vou fazer o seguinte:
+
+1. Vamos em `src > index.js`
+2. `import { StatusBar } from 'react-native';`
+3. dentro do `return` colocamos assim:
+
+`<StatusBar barStyle="light-content" backgroundColor="#7159c1" />`
+
+o ***barStyle*** altera a cor das informacões pra branco e a ***backgroundColor*** altera a cor de fundo no android para a mesa que estivermos usando na navegaçāo.
+
+
