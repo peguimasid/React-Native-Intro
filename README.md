@@ -487,3 +487,127 @@ export default function Main() {
 ```
 
 e nossa estilizacao sera aplicada.
+
+## Aula 09 - Estilizando formulário
+
+Vamos utilizar para isso uma biblioteca de icones e para configura-la vamos fazer o seguinte:
+
+1. `yarn add react-native-vector-icons`
+2. Vamos no [repositorio dele no github](https://github.com/oblador/react-native-vector-icons)
+3. Vamos em `Instalation > iOS`
+4. Clicamos em `List of all available fonts to copy & paste in info.plist`
+5. Copiamos isso:
+
+```
+<key>UIAppFonts</key>
+<array>
+  <string>AntDesign.ttf</string>
+  <string>Entypo.ttf</string>
+  <string>EvilIcons.ttf</string>
+  <string>Feather.ttf</string>
+  <string>FontAwesome.ttf</string>
+  <string>FontAwesome5_Brands.ttf</string>
+  <string>FontAwesome5_Regular.ttf</string>
+  <string>FontAwesome5_Solid.ttf</string>
+  <string>Foundation.ttf</string>
+  <string>Ionicons.ttf</string>
+  <string>MaterialIcons.ttf</string>
+  <string>MaterialCommunityIcons.ttf</string>
+  <string>SimpleLineIcons.ttf</string>
+  <string>Octicons.ttf</string>
+  <string>Zocial.ttf</string>
+</array>
+```
+Vamos no nosso projeto em `Raiz > ios > <nome do projeto> > Info.plist`
+
+6. colamos o que pegamos antes de terminar a tag `<dict>`
+
+7. `cd ios` --> `pod install` --> `cd ..`
+
+### Para Android
+
+1. Entra no repositorio, `Instalation > Android` e copiamos:
+
+```
+project.ext.vectoricons = [
+    iconFontNames: [ 'MaterialIcons.ttf', 'EvilIcons.ttf' ] // Name of the font files you want to copy
+]
+
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+```
+
+2. entramos em `Raiz > android > app > build.gradle` e colamos la no final o código que copiamos.
+
+### Arquivos:
+
+`Main > index.js`:
+
+```
+import React from 'react';
+
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import { Container, Form, Input, SubmitButton } from './styles';
+
+export default function Main() {
+  return (
+    <Container>
+      <Form>
+        <Input
+          autoCorrect={false}
+          autoCapitalize="none"
+          placeholder="Adicionar usuário"
+        />
+        <SubmitButton>
+          <Icon name="add" size={20} color="#fff" />
+        </SubmitButton>
+      </Form>
+    </Container>
+  );
+}
+
+Main.navigationOptions = {
+  title: 'Usuários',
+};
+```
+
+`Main > styles.js`:
+
+```import styled from 'styled-components/native';
+import { RectButton } from 'react-native-gesture-handler';
+
+export const Container = styled.View`
+  flex: 1;
+  padding: 30px;
+`;
+
+export const Form = styled.View`
+  flex-direction: row;
+  padding-bottom: 20px;
+  border-bottom-width: 1px;
+  border-color: #4f4f4f;
+`;
+
+export const Input = styled.TextInput.attrs({
+  placeholderTextColor: '#999',
+})`
+  flex: 1;
+  height: 40px;
+  background: #d3d3d3;
+  height: 45px;
+  border-radius: 10px;
+  padding: 0 15px;
+  border: 1px solid #d3d3d3;
+`;
+
+export const SubmitButton = styled(RectButton)`
+  justify-content: center;
+  align-items: center;
+  background: #4f4f4f;
+  padding: 0 14px;
+  border-radius: 10px;
+  margin-left: 10px;
+`;
+```
+
+assim que fazemos os estilos.
