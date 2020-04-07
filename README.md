@@ -707,6 +707,168 @@ handleAddUser = async () => {
 
 ao enviarmos receberemos os dados do usuario que digitarmos la no ***Reactotron***
 
+## Aula 11 - Estilizando listagem
 
+1. Comecamos criando nossos componentes
 
+2. Fazemos isso com o componente List:
+
+```
+<List
+   data={users}
+   keyExtractor={(user) => user.login}
+   renderItem={({ item: user }) => (
+    <User>
+      <Avatar source={{ uri: user.avatar }} />
+          <Name>{user.name}</Name>
+           <Bio>{user.bio}</Bio>
+
+          <ProfileButton onPress={() => {}}>
+            <ProfileButtonText>Ver perfil</ProfileButtonText>
+          </ProfileButton>
+      </User>
+     )}
+ />
+```
+
+3. importamos cada componente que criamos ali:
+
+```
+import {
+  Container,
+  Form,
+  Input,
+  SubmitButton,
+*  List,
+*  User,
+*  Avatar,
+*  Name,
+*  Bio,
+*  ProfileButton,
+*  ProfileButtonText,
+} from './styles';
+```
+
+4. Criamo eles no `styles.js` e estilizamos:
+
+```
+export const List = styled.FlatList.attrs({
+  showsVerticalScrollIndicator: false,
+})`
+  margin-top: 20px;
+`;
+
+export const User = styled.View`
+  align-items: center;
+  margin: 0 20px 30px;
+`;
+
+export const Avatar = styled.Image`
+  height: 64px;
+  width: 64px;
+  border-radius: 32px;
+  background: #eee;
+`;
+
+export const Name = styled.Text`
+  font-size: 14px;
+  color: #333;
+  font-weight: bold;
+  margin-top: 4px;
+  text-align: center;
+`;
+
+export const Bio = styled.Text.attrs({
+  numberOfLines: 2,
+})`
+  font-size: 13px;
+  line-height: 18px;
+  color: #777;
+  margin-top: 5px;
+  text-align: center;
+`;
+
+export const ProfileButton = styled(RectButton)`
+  margin-top: 20px;
+  align-self: stretch;
+  border-radius: 10px;
+  background: #4f4f4f;
+  justify-content: center;
+  align-items: center;
+  height: 36px;
+`;
+
+export const ProfileButtonText = styled.Text`
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+`;
+```
+
+## Aula 12 - Loading e disabled
+
+Vamos colocar aquele simbolo de carregando enquanto a API estiver buscando os dados e vamos desabilitar o botao.
+
+1. importar o ***ActivityIndicartor*** do react-native, que é aquele simbolo de carregando padrāo do iPhone e Android:
+
+`import { ActivityIndicator } from 'react-native';`
+
+2. Dentro de `state` criamos `loading: false`
+
+3. antes de chamar a API colocamos para setar o estado (setState) do loading para true `this.setState({ loading: true });`
+
+e depois que chamar setamos para falso `this.setState({ loading: false });`
+
+4. Vamos no submit button e deixamos ele assim:
+
+```
+<SubmitButton loading={loading} onPress={this.handleAddUser}>
+  {loading ? (
+    <ActivityIndicator color="#FFF" />
+  ) : (
+    <Icon name="add" size={20} color="#fff" />
+  )}
+</SubmitButton>
+```
+
+Ou seja, se estiver carregando(loading) ele vai mostrar o ActivityIndicator, se nao ele ira mostrar o icone normal.
+
+la no estilo do nosso botao colocamos assim:
+
+`opacity: ${(props) => (props.loading ? 0.7 : 1)};`
+
+Ou seja, se ele esiver carregando a opacidade ira diminuir.
+
+## Aula 13 - Salvando no storage
+
+Por padrao o react native nao tem uma funcionalidade tipo o `localStorage`, entao vamos ter que instalar uma lib para esse papel:
+
+1. Rodar `yarn add @react-native-community/async-storage `
+2. `cd ios > pod install > cd ..`
+3. Rodar `yarn ios`
+4. `import AsyncStorage from '@react-native-community/async-storage';`
+5.
+
+```
+// CARREGA OS ITENS
+async componentDidMount() {
+    const users = await AsyncStorage.getItem('users');
+
+    if (users) {
+      this.setState({ users: JSON.parse(users) });
+    }
+  }
+
+// ARMAZENA OS ITENS
+  componentDidUpdate(_, prevState) {
+    const { users } = this.state;
+
+    if (prevState.users !== users) {
+      AsyncStorage.setItem('users', JSON.stringify(users));
+    }
+  }
+```
+
+com isso nossos dados agora serao salvos no localStorage, nao sumindo se sairmos do app.
 
