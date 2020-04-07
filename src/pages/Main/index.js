@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Keyboard, ActivityIndicator } from 'react-native';
+import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../../services/api';
@@ -19,6 +20,12 @@ import {
 } from './styles';
 
 export default class Main extends Component {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }).isRequired,
+  };
+
   state = {
     newUser: '',
     users: [],
@@ -64,6 +71,12 @@ export default class Main extends Component {
     Keyboard.dismiss();
   };
 
+  handleNavigate = (user) => {
+    const { navigation } = this.props;
+
+    navigation.navigate('User', { user });
+  };
+
   render() {
     const { users, newUser, loading } = this.state;
 
@@ -97,7 +110,7 @@ export default class Main extends Component {
               <Name>{user.name}</Name>
               <Bio>{user.bio}</Bio>
 
-              <ProfileButton onPress={() => {}}>
+              <ProfileButton onPress={() => this.handleNavigate(user)}>
                 <ProfileButtonText>Ver perfil</ProfileButtonText>
               </ProfileButton>
             </User>

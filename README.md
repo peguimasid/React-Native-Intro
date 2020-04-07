@@ -872,3 +872,42 @@ async componentDidMount() {
 
 com isso nossos dados agora serao salvos no localStorage, nao sumindo se sairmos do app.
 
+## Aula 14 - Realizando navegaçāo
+
+Vamos fazer a navegaçao de um usuario para uma proxima rota quando ele clicar em um botao
+
+`<ProfileButton onPress={() => this.handleNavigate(user)}>`
+
+1.criamos a funçao `handleNavigate`
+
+```
+handleNavigate = (user) => {
+    const { navigation } = this.props;
+
+    navigation.navigate('User', { user });
+  };
+```
+Com isso ele chama a funcao e leva a gente para a outra tela, e estamos tambem passando os parametros daquele usuario para a proxima pagina.
+
+2. Vamos em `src > pages > User > index.js` e passamos assim:
+
+```
+export default function User({ navigation }) {
+  console.tron.log(navigation.getParam('user'));
+  return <View />;
+}
+```
+Veremos la no Reactotron os nossos dados passados atraves das propriedades.
+
+3. Rodar `yarn add prop-types`
+
+4. `src > pages > Main > index.js` dentro do class component
+
+```
+static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }).isRequired,
+  };
+```
+temos que passar essa validacao de dados para o ESLint nao reclamar.
