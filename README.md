@@ -611,3 +611,102 @@ export const SubmitButton = styled(RectButton)`
 ```
 
 assim que fazemos os estilos.
+
+## Aula 10 - Acessando API do Github
+
+Para isso vamos mudar nosso carregamento do componente ***Main*** de um ***function*** para uma ***class*** pois vamos usar ***estado(state)*** dentro dele, entao nosso componente ficara assim:
+
+```
+...
+import React, { Component } from 'react';
+...
+export default class Main extends Component {
+  state = {
+
+  }
+
+  render() {
+    return (...
+...
+```
+depois disso fazemos isso no nosso ***state*** e no nosso ***Input***:
+
+***state***:
+
+```
+state = {
+    newUser: '',
+    users: [],
+  };
+```
+
+***Input***:
+
+```
+render(){
+const { users, newUser } = this.state;
+
+.
+.
+.
+
+        <Input
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Adicionar usuário"
+      *     value={newUser}
+      *     onChangeText={(text) => this.setState({ newUser: text })}
+      *     returnKeyType="send"
+      *     onSubmitEditing={this.handleAddUser}
+          />
+```
+
+### Conectando API
+
+1. Rodar `yarn add axios`
+2. Dentro de `src` criamos uma pasta `services` e dentro dela criamos um arquivo `api.js`.
+
+`api.js`:
+
+```
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: 'https://api.github.com',
+});
+
+export default api;
+```
+
+3. Dentro de `src > pages > Main > index.js`
+
+```
+...
+import api from '../../services/api'
+...
+handleAddUser = async () => {
+    const { users, newUser } = this.state;
+
+    const response = await api.get(`/users/${newUser}`); //pega dados da api
+
+    const data = {
+      name: response.data.name,
+      login: response.data.login,
+      bio: response.data.bio,
+      avatar: response.data.avatar_url,
+    };
+
+    this.setState({
+      users: [...users, data],
+      newUser: '',
+    });
+    Keyboard.dismiss(); //Dispensa o teclado
+  };
+
+```
+
+ao enviarmos receberemos os dados do usuario que digitarmos la no ***Reactotron***
+
+
+
+
