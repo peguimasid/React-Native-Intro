@@ -44,7 +44,7 @@ export const List = styled.FlatList.attrs({
 export const User = styled.View`
   align-items: center;
   margin: 0 20px 30px;
-  padding: 20px 20px;
+  padding: 10px 10px;
 `;
 
 export const Avatar = styled.Image`

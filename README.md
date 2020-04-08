@@ -911,3 +911,55 @@ static propTypes = {
   };
 ```
 temos que passar essa validacao de dados para o ESLint nao reclamar.
+
+## Aula 15 Buscando dados da API
+
+Vamos agora ao clicar no botao ***Ver Perfil*** levar o usuario para outra pagina onde ele vera os repositorios que o usuario que ele clicou deu Star.
+
+`pages > User > index.js`:
+
+```
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { View } from 'react-native';
+import api from '../../services/api';
+
+// import { Container } from './styles';
+
+export default class User extends Component {
+
+  // PEGANDO O NOME DAQUELE USUARIO E COLOCANDO NO HEADER DA PAGINA
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.getParam('user').name,
+  });
+
+  static propTypes = {
+    navigation: PropTypes.shape({
+      getParam: PropTypes.func,
+    }).isRequired,
+  };
+
+  state = {
+    stars: [],
+  };
+
+  async componentDidMount() {
+    const { navigation } = this.props;
+    const user = navigation.getParam('user');
+
+    // PEGANDO OS DADOS DOS REPOS QUE O USUARIO DEU STAR
+    const response = await api.get(`/users/${user.login}/starred`);
+
+    // SETANDO O ESTADO DE STARS COM ESSAS INFORMAÇÕES
+    this.setState({ stars: response.data });
+  }
+
+  render() {
+    const { starts } = this.state;
+
+    return <View />;
+  }
+}
+```
+
+
