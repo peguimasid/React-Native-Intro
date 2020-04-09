@@ -7,9 +7,7 @@
 </h3>
 
 <h1 align="center">
-  <img src="./assets/img1.png" width="200px" />
-  <img src="./assets/img2.png" width="200px" />
-  <img src="./assets/img3.png" width="200px" />
+  <img src="./assets/demo.png" width="200px" />
 </h1>
 
 ### Rodando na sua maquina:
