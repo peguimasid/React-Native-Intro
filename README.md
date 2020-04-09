@@ -912,7 +912,7 @@ static propTypes = {
 ```
 temos que passar essa validacao de dados para o ESLint nao reclamar.
 
-## Aula 15 Buscando dados da API
+## Aula 15 - Buscando dados da API
 
 Vamos agora ao clicar no botao ***Ver Perfil*** levar o usuario para outra pagina onde ele vera os repositorios que o usuario que ele clicou deu Star.
 
@@ -962,4 +962,30 @@ export default class User extends Component {
 }
 ```
 
+## Aula 16 - Listando favoritos
 
+Vamos listar esses dados que pegamos na ultima aula.
+
+```
+render() {
+    const { navigation } = this.props;
+    const { starts } = this.state;
+
+    const user = navigation.getParam('user');
+
+    return (
+      <Container>
+        <Header>
+          <Avatar source={{ uri: user.avatar }} />
+          <Name>{user.name}</Name>
+          <Bio>{user.bio}</Bio>
+        </Header>
+      </Container>
+    );
+  }
+}
+```
+
+depois disso importamos os componentes e estilizamos como quiser;
+
+Olhar o repositorio do [desafio de React Native](https://github.com/Rocketseat/bootcamp-gostack-desafio-06/blob/master/README.md#desafio-06-aplica%C3%A7%C3%A3o-com-react-native), la fazemos a paginacao(scroll infinito), refresh, loading enquanto nao carrega, e WebView.
