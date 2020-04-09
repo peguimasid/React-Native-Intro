@@ -7,7 +7,7 @@
 </h3>
 
 <h1 align="center">
-  <img src="./assets/demoApp.png" width="700px" />
+  <img src="./assets/demoApp.png" width="1000px" />
 </h1>
 
 ### Rodando na sua maquina:
