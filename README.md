@@ -15,7 +15,7 @@
 1. Baixe o arquivo ***.ZIP***
 2. `cd React-Native-Intro-master`
 3. `yarn` para instalar as dependencias
-4. `npx react-native start` para iniciar o servidor
+4. `yarn ios` para iniciar o servidor (demora um pouco essa parte)
 5. Abrir o emulador de IOS no seu computador.
 
 # Primeiro projeto com React Native
