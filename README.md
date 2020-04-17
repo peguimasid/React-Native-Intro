@@ -414,6 +414,7 @@ export default function App() {
   return <Routes />;
 }
 ```
+Se aparecer qualquer erro faca isso: `cd ios` > `pod install` > `cd ..` pare o servidor e inicie novamente com `yarn ios`
 
 Se aparecer um cabecalho na parte de cima da tela do simulador é sinal de que funcionou perfeitamente
 
