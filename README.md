@@ -402,7 +402,7 @@ export default Routes;
 
 --> Sempre colocar qualquer tipo de navegaçāo dentro do `createAppContainer`
 
-10. Voltamos no `index.js` na raiz do projeto e deixamos ele assim
+10. Voltamos no `index.js` na pasta `src` e deixamos ele assim
 
 ```
 import React from 'react';
